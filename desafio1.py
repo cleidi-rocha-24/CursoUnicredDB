@@ -1,7 +1,6 @@
 import json
 
-# JSON representando os produtos do mercado
-produtos_json = '''
+produto_json = '''
 [
     { "id": 1, "nome": "Arroz", "quantidade": 50, "preco": 20.99 },
     { "id": 2, "nome": "Feijão", "quantidade": 30, "preco": 8.50 },
@@ -16,22 +15,22 @@ produtos_json = '''
 ]
 '''
 
-# Carregar os dados JSON
-produtos = json.loads(produtos_json)
+# Carrega os dados do JSON
+produtos = json.loads(produto_json)
 
-# Variável para armazenar o valor total
-valor_total = 0
 
-# Iterar sobre os produtos e exibir as informações
+valor_tot = 0
+
+# loop sobre os produtos e mostra informações
 for produto in produtos:
     nome = produto["nome"]
     quantidade = produto["quantidade"]
     preco = produto["preco"]
-    valor_total_produto = quantidade * preco
-    valor_total += valor_total_produto
+    valor_tot_prod = quantidade * preco
+    valor_tot = valor_tot + valor_tot_prod
     
-    # Exibir as informações do produto
-    print(f'Produto: {nome}, Quantidade: {quantidade}, Preço Unitário: R${preco:.2f}, Valor Total: R${valor_total_produto:.2f}')
+    # mostra informaçoes dos produtos
+    print(f'Produto: {nome}, Quantidade: {quantidade}, Preço Unitário: R${preco:.2f}, Valor Total: R${valor_tot_prod:.2f}')
 
-# Exibir o valor total dos produtos
-print(f'\nValor total em produtos no mercado: R${valor_total:.2f}')
+# mostra valor total dos produtos
+print(f'Valor total dos produtos no mercado: R${valor_tot:.2f}')
