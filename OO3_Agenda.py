@@ -6,19 +6,23 @@ class Contato:
 class AgendaTelefonica:
     def __init__(self): 
         self.agenda = []
-         
-    def buscarContato(self,nome:str):
+
+    def validarExistenciaDeContato(self, nome:str):
         nome = nome.lower()
         for contato in self.agenda:
             if contato.nome.lower() == nome:
                 print(f"Nome: {contato.nome}, Telefone: {contato.telefone}")
                 return contato
-        print("\nContato não encontrado.")
         return None
-        
+         
+    def buscarContato(self,nome:str):
+        contato = self.validarExistenciaDeContato(nome)
+        if contato:
+            return contato
+              
 
     def adicionarContato(self,contato:Contato):
-        if self.buscarContato(contato.nome) is None:
+        if self.validarExistenciaDeContato(contato.nome) is None:
             self.agenda.append(contato)
             print("\nContato adicionado com sucesso")
         else:
@@ -26,7 +30,7 @@ class AgendaTelefonica:
 
 
     def removerContato(self,nome:str):
-        contato = self.buscarContato(nome)
+        contato = self.validarExistenciaDeContato(nome)
         if contato:
             self.agenda.remove(contato)
             print("\nContato removido com sucesso.")
@@ -47,14 +51,7 @@ class AgendaTelefonica:
                 print(f"Nome: {contato.nome}, Telefone: {contato.telefone}")
             print("------\n")
 
-"""
-Adicionar um novo contato.
-Remover um contato existente.
-Buscar um contato pelo nome.
-Atualizar informações de um contato.
-Listar todos os contatos na agenda.
-Sair do programa.
-"""
+
 class Menu(AgendaTelefonica):
     def menu(self):
         while True: 
