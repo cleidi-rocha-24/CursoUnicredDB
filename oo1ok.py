@@ -1,5 +1,3 @@
-import json
-
 class Produto:
     def __init__(self, id, nome, quantidade, preco):
         self.id = id
@@ -32,7 +30,7 @@ class Mercado:
         print(f'Quantidade total dos produtos no mercado:{quantidade_total}')
         print(f'Valor total dos produtos no mercado: R${valor_total_produto:.2f}')
 
-
+import json
 produto_json = '''
 [
     { "id": 1, "nome": "Arroz", "quantidade": 50, "preco": 20.99 },
