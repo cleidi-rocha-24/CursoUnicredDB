@@ -13,9 +13,7 @@ class Biblioteca:
         titulo = titulo.lower()
         for busca_livros in self.livro:
             if busca_livros.titulo.lower() == titulo:
-                #print(f"Título: {busca_livros.titulo}")
                 return busca_livros
-        #print(f"\nLivro {titulo} não encontrado")
         return None
     
     def adicionarLivro(self,informacoes_livro:Livro):
