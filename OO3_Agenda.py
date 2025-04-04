@@ -19,6 +19,8 @@ class AgendaTelefonica:
         contato = self.validarExistenciaDeContato(nome)
         if contato:
             return contato
+        else:
+            print("\nContato não encontrado")
               
 
     def adicionarContato(self,contato:Contato):
@@ -30,17 +32,19 @@ class AgendaTelefonica:
 
 
     def removerContato(self,nome:str):
-        contato = self.validarExistenciaDeContato(nome)
+        contato = self.buscarContato(nome)
         if contato:
             self.agenda.remove(contato)
             print("\nContato removido com sucesso.")
         
     def atualizarContato(self,nome:str,contato_editado:Contato):
         contato = self.buscarContato(nome)
-        if contato:
+        if contato in self.agenda:
             contato.nome = contato_editado.nome
             contato.telefone = contato_editado.telefone
             print("\nContato atualizado com sucesso.")
+        
+        
     
     def listarContatos(self):
         if not self.agenda:
@@ -81,11 +85,13 @@ class Menu(AgendaTelefonica):
                 nome_busca = input ("Informe nome a ser localizado:")
                 super().buscarContato(nome_busca)
             elif opcao == 4:
-                nome_edicao = input ("Informe o nome a ser buscado para alteração: ")
-                nome_alterado = input ("Informe o nome a ser alterado: ")
-                telefone_edicao = input ("Informe o telefone a ser alterado: ")
-                contato_editado = Contato(nome_alterado,telefone_edicao)
-                super().atualizarContato(nome_edicao,contato_editado)
+                nome_edicao = input("Informe o nome a ser buscado para alteração: ")
+                contato = super().buscarContato(nome_edicao)
+                if contato:
+                    nome_alterado = input("Informe o nome a ser alterado: ")
+                    telefone_edicao = input("Informe o telefone a ser alterado: ")
+                    contato_editado = Contato(nome_alterado,telefone_edicao)
+                    super().atualizarContato(nome_edicao, contato_editado)
             elif opcao == 5:
                 super().listarContatos()
 
