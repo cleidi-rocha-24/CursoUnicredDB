@@ -1,24 +1,19 @@
 from csv import reader
 
+class Produto:
+    def __init__(self,id,nome,preco):
+        self.id = id
+        self.nome = nome
+        self.preco = preco
 
 class CaixaDoAtacado:
+    cardapio = {
+        1: Produto(1, "cafe 1kg", 53.00),
+        2: Produto(2, "Sabão em Pó", 36.00),
+        3: Produto(3, "Caixa de Leite", 82.00),
+        4: Produto(4, "Refrigerante", 8.50),
+    }
 
-    def cardapio(self,id_produto):
-        match id_produto:
-            case 1:
-                preco_prod = 53.00
-                nome_prod = "Café 1kg"
-            case 2:
-                preco_prod = 36.00
-                nome_prod = "Sabão em pó"
-            case 3:
-                preco_prod = 82.00
-                nome_prod = "Caixa de Leite"
-            case 4:
-                preco_prod = 8.50
-                nome_prod = "Refrigerante"
-        return preco_prod,nome_prod
-    
     def ler_arquivo_csv(self,nome_arquivo):
         with open(nome_arquivo) as arquivo:
             arquivo_lido = reader(arquivo)
@@ -36,27 +31,29 @@ class CaixaDoAtacado:
         desconto_forma_pag = self.desconto_metodo_pagamento(metodo_pagamento) 
         for id_produto, qtde_item in lista_id_qtde:
             desconto_item = self.percentual_desconto(qtde_item) 
-            preco_produto,nome_produto = self.cardapio(id_produto) 
-            valor_total_desconto_item = (preco_produto-(desconto_item*preco_produto))*qtde_item
+            prod_dicionario = self.cardapio[id_produto]
+            prod_preco = prod_dicionario.preco
+            prod_nome = prod_dicionario.nome
+            valor_total_desconto_item = (prod_preco-(desconto_item*prod_preco))*qtde_item
             total += valor_total_desconto_item
-            print(f"\nproduto:{nome_produto}, quantidade:{qtde_item}, preço produto:{preco_produto:.2f}, total item com desconto:{valor_total_desconto_item:.2f}")
+            print(f"\nproduto:{prod_nome}, quantidade:{qtde_item}, preço produto:{prod_preco:.2f}, total item com desconto:{valor_total_desconto_item:.2f}")
                     
         if metodo_pagamento == "Credito":
             total = total + (desconto_forma_pag*total)
         else:
             total = total - (desconto_forma_pag*total)
-        print(f"\nTotal aplicando calculo forma de pagamento:{total:.2f}")
+        print(f"\nTotal aplicando calculo sobre forma de pagamento:{total:.2f}")
         return total
                
     def percentual_desconto(self,quantidade_total):
-        if quantidade_total <= 10:
+        if quantidade_total <= 5:
             return 0
-        elif quantidade_total <= 20:
+        elif quantidade_total <= 15:
             return 0.10
-        elif quantidade_total <= 50:
+        elif quantidade_total <= 25:
             return  0.20
         else: 
-            quantidade_total > 50
+            quantidade_total > 25
             return 0.25 
 
     def desconto_metodo_pagamento(self,forma_pagamento):
